@@ -16,10 +16,17 @@ int setup(void) {
 	int col1 = 0;
 
 	wiringPiSetupGpio();
+   
+   for (size_t i = 1; i < 4; i++)
+      {
+      printf("Please enter the GPIO pin number for Column %d: \n" i);
+      col1 = getUserInt();
+      pinMode(col1, OUTPUT);
 
-	printf("%s\n", "Please enter the GPIO pin number for Column 1: ");
-	col1 = getUserInt();
-	pinMode(col1, OUTPUT);
+      printf("Please enter the GPIO pin number for Column %d: \n", i);
+      col1 = getUserInt();
+      pinMode(col1, OUTPUT);
+      }
 
 	return 0;	
 }

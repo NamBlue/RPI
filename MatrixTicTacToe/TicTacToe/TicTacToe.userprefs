@@ -1,10 +1,6 @@
-﻿<Properties StartupItem="RPI/LightControllerv1.0.cproj">
+﻿<Properties StartupItem="TicTacToe/TicTacToe.cproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RPI/main.c">
-    <Files>
-      <File FileName="RPI/main.c" Line="6" Column="36" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

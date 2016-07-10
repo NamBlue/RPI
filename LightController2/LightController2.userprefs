@@ -1,8 +1,8 @@
-﻿<Properties StartupItem="RPI/LightControllerv1.0.cproj">
+﻿<Properties StartupItem="LightController2/LightController2.cproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RPI/main.c">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LightController2/main.c">
     <Files>
-      <File FileName="RPI/main.c" Line="6" Column="36" />
+      <File FileName="LightController2/main.c" Line="46" Column="8" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

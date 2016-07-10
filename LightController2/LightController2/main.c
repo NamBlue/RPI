@@ -4,20 +4,24 @@
 
 
 int main (int argc, char *argv[]) {
-	size_t i, x = 0, y = 0, ms = 0;
+	size_t i, x = 0, y = 0, z = 0, ms = 0;
 
 	wiringPiSetupGpio();
 
 	pinMode(23, OUTPUT);
+	pinMode(24, INPUT);
 	pinMode(18, INPUT);
 	pinMode(17, INPUT);
-	printf ("%s\n%s", "Welcome to our Light Controller program!"
-		, "Press any key to read from input or ctrl+d to exit:");
-	while (getchar() != EOF) 
+	digitalWrite(23, LOW);
+
+	printf ("%s\n%s", "Welcome to our Light Controller program 2!"
+		, "Flip the switches to have fun or press the button to exit!");
+	while (z != 1) 
 	{
 		x = digitalRead(18);
 		y = digitalRead(17);
-		printf ("%d%d\n", x, y);
+		z = digitalRead(24);
+
 
 		if (x == 0 && y == 0)
 		{
@@ -36,20 +40,19 @@ int main (int argc, char *argv[]) {
 			ms = 1;
 		}
 
-		for (i = 0; i < 50; i++) 
-		{
-			if (!(x + y))
-			break;
 
-			digitalWrite(23, HIGH);
+		if (!(x + y))
+			continue;
 
-			if (x + y == 2)
-			continue;	
-			delay(ms);
+		digitalWrite(23, HIGH);
 
-			digitalWrite(23, LOW);
-			delay(ms);
-		}
+		if (x + y == 2)
+		continue;	
+		delay(ms);
+
+		digitalWrite(23, LOW);
+		delay(ms);
+
 	}
 	return 0;
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{2857B73E-F847-4B02-9238-064979017E93}") = "RPI", "RPI\RPI.cproj", "{AB663430-B717-4AB7-BE3A-2F44571C73F7}"
+Project("{2857B73E-F847-4B02-9238-064979017E93}") = "LightControllerv1.0", "RPI\LightControllerv1.0.cproj", "{AB663430-B717-4AB7-BE3A-2F44571C73F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

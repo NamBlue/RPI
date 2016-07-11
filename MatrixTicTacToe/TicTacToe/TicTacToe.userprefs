@@ -1,6 +1,10 @@
 ﻿<Properties StartupItem="TicTacToe/TicTacToe.cproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TicTacToe/main.c">
+    <Files>
+      <File FileName="TicTacToe/main.c" Line="32" Column="14" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

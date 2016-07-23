@@ -7,7 +7,7 @@ int main (int argc, char *argv[])
 	setup();
 	run();
 	end();
-	printf("Press enter to exit:");
+	printf("End of program, enter to exit:");
 	getchar();
 	return 0;
 }
@@ -42,6 +42,12 @@ int getUserInt(void) {
 }
 
 int run(void) {
+	int exit = 0;
+	while (exit != 1) {
+
+	printf("\nEnter 1 to exit>");
+	exit = getUserInt();
+	}
 	return 0;
 }
 

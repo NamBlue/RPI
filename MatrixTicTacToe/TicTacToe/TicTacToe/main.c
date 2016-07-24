@@ -16,11 +16,26 @@ int main (int argc, char *argv[])
 }
 
 int setup(void) {
-	int col1 = 0;
+	int pinNum = 0;
 
-	wiringPiSetupGpio();
-   
+   wiringPiSetupGpio(void); 
 
+   printf("Please enter the GPIO pin number for the LED Positioner: \n");
+   pinNum = getUserInt();
+   pinMode(pinNum, INPUT);
+   printf("LED Posistioner set to pin %d\n", pinNum);
+
+   printf("Please enter the GPIO pin number for the LED Selector: \n");
+   pinNum = getUserInt();
+   pinMode(pinNum, INPUT);
+   printf("LED Selector set to pin %d\n", pinNum);
+
+      pinNum = getUserInt();
+      pinMode(pinNum, OUTPUT);
+      printf("Column %d set to pin %d\n", i, pinNum);
+	   pinNum = getUserInt();
+   	pinMode(pinNum, OUTPUT);
+      printf("Row %d set to pin %d\n", i, pinNum);
 	return 0;	
 }
 

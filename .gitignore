@@ -12,3 +12,5 @@
 *.opendb
 *.sdf
 *.ipch
+*.db
+*.pdb

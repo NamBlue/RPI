@@ -3,3 +3,12 @@
 *.suo
 *.htm
 *.orig
+*.log
+*.tlog
+*.lastbuildstate
+*.idb
+*.vcxproj
+*.filters
+*.opendb
+*.sdf
+*.ipch

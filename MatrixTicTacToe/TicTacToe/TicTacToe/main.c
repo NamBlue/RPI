@@ -5,6 +5,17 @@
 /* 1000MS per Second so 1000MS/60FPS = 16.7MS_PER_UPDATE */
 #define MS_PER_UPDATE 16
 
+typedef struct led
+{
+    int pin;
+    int state;
+} led;
+
+typedef struct board 
+{
+    led led1, led2, led3, led4, led5, led6, led7, led8, led9;
+} board;
+
 int main (int argc, char *argv[])
 {
 	setup();

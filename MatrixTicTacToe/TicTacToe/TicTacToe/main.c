@@ -30,12 +30,18 @@ int setup(void) {
    pinMode(pinNum, INPUT);
    printf("LED Selector set to pin %d\n", pinNum);
 
+   for (size_t i = 1; i < 4; i++)
+      {
+      printf("Please enter the GPIO pin number for Column %d: \n", i);
       pinNum = getUserInt();
       pinMode(pinNum, OUTPUT);
       printf("Column %d set to pin %d\n", i, pinNum);
+
+      printf("Please enter the GPIO pin number for Row %d: \n", i);
 	   pinNum = getUserInt();
    	pinMode(pinNum, OUTPUT);
       printf("Row %d set to pin %d\n", i, pinNum);
+      }
 	return 0;	
 }
 

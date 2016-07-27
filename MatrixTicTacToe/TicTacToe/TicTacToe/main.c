@@ -13,7 +13,7 @@ typedef struct led
 
 typedef struct board 
 {
-    led led1, led2, led3, led4, led5, led6, led7, led8, led9;
+    led ledArr[9];
     int positioner, selector;
 } board;
 
@@ -31,9 +31,9 @@ int main (int argc, char *argv[])
 }
 
 int setup(void) {
-	int io1 = 0, int io2;
+	int io1 = 0, io2 = 0;
 
-   wiringPiSetupGpio(void); 
+   wiringPiSetupGpio(); 
 
    printf("Please enter the GPIO pin number for the LED Positioner: \n");
    io1 = getUserInt();
@@ -62,30 +62,30 @@ int setup(void) {
       
       if (i == 1)
          {
-         matrix.led1.pinh = io1;
-         matrix.led4.pinh = io1;
-         matrix.led7.pinh = io1;
-         matrix.led1.pinl = io2;
-         matrix.led2.pinl = io2;
-         matrix.led3.pinl = io2;
+         matrix.ledArr[0].pinh = io1;
+         matrix.ledArr[3].pinh = io1;
+         matrix.ledArr[6].pinh = io1;
+         matrix.ledArr[0].pinl = io2;
+         matrix.ledArr[1].pinl = io2;
+         matrix.ledArr[2].pinl = io2;
          }
       if (i == 2)
          {
-         matrix.led2.pinh = io1;
-         matrix.led5.pinh = io1;
-         matrix.led8.pinh = io1;
-         matrix.led4.pinl = io2;
-         matrix.led5.pinl = io2;
-         matrix.led6.pinl = io2;
+         matrix.ledArr[1].pinh = io1;
+         matrix.ledArr[4].pinh = io1;
+         matrix.ledArr[7].pinh = io1;
+         matrix.ledArr[3].pinl = io2;
+         matrix.ledArr[4].pinl = io2;
+         matrix.ledArr[5].pinl = io2;
          }
       if (i == 3)
          {
-         matrix.led3.pinh = io1;
-         matrix.led6.pinh = io1;
-         matrix.led9.pinh = io1;
-         matrix.led7.pinl = io2;
-         matrix.led8.pinl = io2;
-         matrix.led9.pinl = io2;
+         matrix.ledArr[2].pinh = io1;
+         matrix.ledArr[5].pinh = io1;
+         matrix.ledArr[8].pinh = io1;
+         matrix.ledArr[6].pinl = io2;
+         matrix.ledArr[7].pinl = io2;
+         matrix.ledArr[8].pinl = io2;
          }
       }
 

@@ -7,14 +7,18 @@
 
 typedef struct led
 {
-    int pin;
+    int pinh, pinl;
     int state;
 } led;
 
 typedef struct board 
 {
     led led1, led2, led3, led4, led5, led6, led7, led8, led9;
+    int positioner, selector;
 } board;
+
+
+board matrix;
 
 int main (int argc, char *argv[])
 {
@@ -27,32 +31,64 @@ int main (int argc, char *argv[])
 }
 
 int setup(void) {
-	int pinNum = 0;
+	int io1 = 0, int io2;
 
    wiringPiSetupGpio(void); 
 
    printf("Please enter the GPIO pin number for the LED Positioner: \n");
-   pinNum = getUserInt();
-   pinMode(pinNum, INPUT);
-   printf("LED Posistioner set to pin %d\n", pinNum);
+   io1 = getUserInt();
+   pinMode(io1, INPUT);
+   printf("LED Posistioner set to pin %d\n", io1);
 
    printf("Please enter the GPIO pin number for the LED Selector: \n");
-   pinNum = getUserInt();
-   pinMode(pinNum, INPUT);
-   printf("LED Selector set to pin %d\n", pinNum);
+   io2 = getUserInt();
+   pinMode(io2, INPUT);
+   printf("LED Selector set to pin %d\n", io2);
+
+   matrix.positioner = io1;
+   matrix.selector = io2;
 
    for (size_t i = 1; i < 4; i++)
       {
       printf("Please enter the GPIO pin number for Column %d: \n", i);
-      pinNum = getUserInt();
-      pinMode(pinNum, OUTPUT);
-      printf("Column %d set to pin %d\n", i, pinNum);
+      io1 = getUserInt();
+      pinMode(io1, OUTPUT);
+      printf("Column %d set to pin %d\n", i, io1);
 
       printf("Please enter the GPIO pin number for Row %d: \n", i);
-	   pinNum = getUserInt();
-   	pinMode(pinNum, OUTPUT);
-      printf("Row %d set to pin %d\n", i, pinNum);
+	   io2 = getUserInt();
+   	pinMode(io2, OUTPUT);
+      printf("Row %d set to pin %d\n", i, io2);
+      
+      if (i == 1)
+         {
+         matrix.led1.pinh = io1;
+         matrix.led4.pinh = io1;
+         matrix.led7.pinh = io1;
+         matrix.led1.pinl = io2;
+         matrix.led2.pinl = io2;
+         matrix.led3.pinl = io2;
+         }
+      if (i == 2)
+         {
+         matrix.led2.pinh = io1;
+         matrix.led5.pinh = io1;
+         matrix.led8.pinh = io1;
+         matrix.led4.pinl = io2;
+         matrix.led5.pinl = io2;
+         matrix.led6.pinl = io2;
+         }
+      if (i == 3)
+         {
+         matrix.led3.pinh = io1;
+         matrix.led6.pinh = io1;
+         matrix.led9.pinh = io1;
+         matrix.led7.pinl = io2;
+         matrix.led8.pinl = io2;
+         matrix.led9.pinl = io2;
+         }
       }
+
 	return 0;	
 }
 

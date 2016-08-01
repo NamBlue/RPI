@@ -56,6 +56,7 @@ board matrix;
 int main (int argc, char *argv[])
 {
 	setup();
+    initialize();
 	run();
 	end();
 	printf("End of program, enter to exit:");
@@ -127,6 +128,19 @@ int setup(void) {
 
 int initialize(void)
 {
+    matrix.state = IDLE;
+    for (size_t i = 0; i < 9; i++)
+    {
+        /*First led is always selected as the starting position*/
+        if (i == 0) 
+        {
+            matrix.ledArr[i].state = SELECTED;
+        } 
+        else
+        {
+            matrix.ledArr[i].state = OFF;
+        }
+    }
     return 0;
 }
 
@@ -147,6 +161,8 @@ int getUserInt(void)
 			printf("%s\n", "Invalid input try again: ");
 		}
 	}
+
+    return 1;
 }
 
 void processInput(void) 

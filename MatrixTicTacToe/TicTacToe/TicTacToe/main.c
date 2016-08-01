@@ -311,6 +311,50 @@ void update(void)
 
 void render(void) 
 {
+    for (size_t i = 0; i < 9; i++)
+    {
+        /*Not redundant, for faster rendering.*/
+        if (matrix.ledArr[i].state == OFF)
+        {
+            continue;
+        }
+        else if (matrix.ledArr[i].state == CROSS) 
+        {
+            /*Render for cross in solid light*/
+            digitalWrite(matrix.ledArr[i].pinHigh, HIGH);
+            digitalWrite(matrix.ledArr[i].pinLow, LOW);
+        }
+        else if (matrix.ledArr[i].state == CIRCLE)
+        {
+            /*Render for circle in fast blinking light*/
+            if (!matrix.frame % 5)
+            {
+                digitalWrite(matrix.ledArr[i].pinHigh, HIGH);
+                digitalWrite(matrix.ledArr[i].pinLow, LOW);
+            }
+            else
+            {
+                digitalWrite(matrix.ledArr[i].pinHigh, LOW);
+                digitalWrite(matrix.ledArr[i].pinLow, LOW);
+            }
+        }
+        else if (matrix.ledArr[i].state == SELECTED ||
+            matrix.ledArr[i].state == SELECTEDX ||
+            matrix.ledArr[i].state == SELECTEDO)
+        {
+            /*Render for selected in slow blinking light*/
+            if (!matrix.frame % 20)
+            {
+                digitalWrite(matrix.ledArr[i].pinHigh, HIGH);
+                digitalWrite(matrix.ledArr[i].pinLow, LOW);
+            }
+            else
+            {
+                digitalWrite(matrix.ledArr[i].pinHigh, LOW);
+                digitalWrite(matrix.ledArr[i].pinLow, LOW);
+            }
+        }
+    }
 	return;
 }
 

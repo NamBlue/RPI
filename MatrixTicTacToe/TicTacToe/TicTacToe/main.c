@@ -33,6 +33,7 @@ typedef enum boardStates
 	IDLING,
 	POSITIONING,
 	SELECTING,
+    EXITING
 } boardState;
 
 typedef struct led
@@ -47,6 +48,8 @@ typedef struct board
     led ledArr[9];
 	/*The two controls for user input*/
     int positioner, selector;
+	/*The three controls for user input*/
+    int positioner, selector, exit;
 } board;
 
 
@@ -95,8 +98,10 @@ int setup(void) {
     pinMode(io2, INPUT);
     printf("LED Selector set to pin %d\n", io2);
 
-    matrix.positioner = io1;
-    matrix.selector = io2;
+    printf("Please enter the GPIO pin number for the Exit button: \n");
+    matrix.exit = getUserInt();
+    pinMode(matrix.exit, INPUT);
+    printf("Exit button set to pin %d\n", matrix.exit);
 
     for (size_t i = 1; i < 4; i++)
     {
@@ -193,6 +198,11 @@ void processInput(void)
         matrix.state = SELECTING;
         return;
     }
+    else if (digitalRead(matrix.exit)) 
+    {
+        matrix.state = EXITING;
+        return;
+    }
     else 
     {
         matrix.state = IDLING;
@@ -202,6 +212,11 @@ void processInput(void)
 
 void update(void) 
 {
+    else if (matrix.state == EXITING)
+    {
+        printf("\nThanks for playing!");
+        exit(0);
+    }
 	return;
 }
 
@@ -230,11 +245,10 @@ long getCurrentTime(void)
 
 int run(void) 
 {
-    int exit = 0;
     long previous = getCurrentTime();
 	long lag = 0;
 
-	while (exit < 500) 
+	while (1) 
 	{
 		long current = getCurrentTime();
 		long elapsed = current - previous;
@@ -244,14 +258,12 @@ int run(void)
 
 		processInput();
 
-		printf("\nLag = %d \n Current Time = %d", lag , current/10);
 		while(lag >= MS_PER_UPDATE) 
 		{
 			update();
 			lag -= MS_PER_UPDATE;
 		}
 
-		exit++;
 		render();
 	}
 	return 0;

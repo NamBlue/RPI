@@ -230,6 +230,77 @@ void update(void)
     {
         matrix.frame++;
     }
+
+    if (matrix.state == IDLING)
+        return;
+
+    /*Still require a logic to win or reset the game on tie or exit*/
+    if (matrix.state == POSITIONING) 
+    {
+        for (size_t i = 0; i < 9; i++) 
+        {
+            if (matrix.ledArr[i].state == SELECTED || 
+                matrix.ledArr[i].state == SELECTEDX || 
+                matrix.ledArr[i].state == SELECTEDO)
+            {
+                if (matrix.ledArr[i].state == SELECTEDX) 
+                {
+                    matrix.ledArr[i].state = CROSS;
+                } 
+                else if (matrix.ledArr[i].state == SELECTEDO)
+                {
+                    matrix.ledArr[i].state = CIRCLE;
+                }
+                else
+                {
+                    matrix.ledArr[i].state = OFF;
+                }
+
+                if (++i == 8)
+                {
+                    i = 0;
+                }
+                else
+                {
+                    i++;
+                }
+
+                if (matrix.ledArr[i].state == CROSS)
+                {
+                    matrix.ledArr[i].state = SELECTEDX;
+                }
+                else if (matrix.ledArr[i].state == CIRCLE)
+                {
+                    matrix.ledArr[i].state = SELECTEDO;
+                }
+                else
+                {
+                    matrix.ledArr[i].state = SELECTED;
+                }
+                return;
+            }
+        }
+        printf("\nSomething wrong happened, cant find a selected pin.");
+        return;
+    }
+    else if (matrix.state == SELECTING)
+    {
+        for (size_t i = 0; i < 9; i++)
+        {
+            if (matrix.ledArr[i].state == SELECTED)
+            {
+                if (matrix.player == X)
+                {
+                    matrix.ledArr[i].state = SELECTEDX;
+                }
+                else
+                {
+                    matrix.ledArr[i].state = SELECTEDO;
+                }
+            }
+        }
+        return;
+    }
     else if (matrix.state == EXITING)
     {
         printf("\nThanks for playing!");

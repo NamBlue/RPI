@@ -25,14 +25,14 @@ typedef enum ledStates
 	CIRCLE,
 	/*SELECTEDX and O represent the state where it is CIRCLE or CROSS and also it is the currently selected led*/
 	SELECTEDX,
-	SLECTEDO
+	SELECTEDO
 } ledState;
 
 typedef enum boardStates
 {
-	IDLE,
+	IDLING,
 	POSITIONING,
-	SELECTING
+	SELECTING,
 } boardState;
 
 typedef struct led
@@ -55,11 +55,27 @@ board matrix;
 
 int main (int argc, char *argv[])
 {
-	setup();
-    initialize();
-	run();
-	end();
-	printf("End of program, enter to exit:");
+    if (setup())
+    {
+        printf("\nError occurred in setup.");
+        exit(1);
+    }
+    if (initialize())
+    {
+        printf("\nError occurred in initialize.");
+        exit(1);
+    }
+    if (run())
+    {
+        printf("\nError occurred in run.");
+        exit(1);
+    }
+    if (end())
+    {
+        printf("\nError occurred in end.");
+        exit(1);
+    }
+	printf("\nEnd of program, enter to exit:");
 	getchar();
 	return 0;
 }
@@ -128,7 +144,7 @@ int setup(void) {
 
 int initialize(void)
 {
-    matrix.state = IDLE;
+    matrix.state = IDLING;
     for (size_t i = 0; i < 9; i++)
     {
         /*First led is always selected as the starting position*/
@@ -179,7 +195,7 @@ void processInput(void)
     }
     else 
     {
-        matrix.state = IDLE;
+        matrix.state = IDLING;
         return;
     }
 }
@@ -223,7 +239,7 @@ int run(void)
 		long current = getCurrentTime();
 		long elapsed = current - previous;
 		previous = current;
-		/* time is in 1/10 of a millisecond so need to divide be 10 to get miliseconds */
+		/* time is in 1/10 of a millisecond so need to divide by 10 to get miliseconds */
 		lag += (elapsed / 10);
 
 		processInput();

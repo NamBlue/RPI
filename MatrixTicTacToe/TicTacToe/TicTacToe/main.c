@@ -7,6 +7,7 @@
 
 /*Functions declared here*/
 int setup(void);
+int initialize(void);
 int run(void);
 void processInput(void);
 void update(void);
@@ -27,6 +28,13 @@ typedef enum ledStates
 	SLECTEDO
 } ledState;
 
+typedef enum boardStates
+{
+	IDLE,
+	POSITIONING,
+	SELECTING
+} boardState;
+
 typedef struct led
 {
     int pinHigh, pinLow;
@@ -35,7 +43,9 @@ typedef struct led
 
 typedef struct board 
 {
+	boardState state;
     led ledArr[9];
+	/*The two controls for user input*/
     int positioner, selector;
 } board;
 
@@ -115,6 +125,12 @@ int setup(void) {
 	return 0;	
 }
 
+int initialize(void)
+{
+    return 0;
+}
+
+/*Support function used to get an int from stdin*/
 int getUserInt(void) 
 {
 	char input[LINESIZE];
@@ -135,7 +151,21 @@ int getUserInt(void)
 
 void processInput(void) 
 {
-	return;
+	if (digitalRead(matrix.positioner)) 
+    {
+		matrix.state = POSITIONING;
+		return;
+    }
+    else if (digitalRead(matrix.selector)) 
+    {
+        matrix.state = SELECTING;
+        return;
+    }
+    else 
+    {
+        matrix.state = IDLE;
+        return;
+    }
 }
 
 void update(void) 
@@ -168,8 +198,8 @@ long getCurrentTime(void)
 
 int run(void) 
 {
-	int exit = 0;
-	long previous = getCurrentTime();
+    int exit = 0;
+    long previous = getCurrentTime();
 	long lag = 0;
 
 	while (exit < 500) 

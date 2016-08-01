@@ -5,10 +5,32 @@
 /* 1000MS per Second so 1000MS/60FPS = 16.7MS_PER_UPDATE */
 #define MS_PER_UPDATE 16
 
+/*Functions declared here*/
+int setup(void);
+int run(void);
+void processInput(void);
+void update(void);
+void render(void);
+int end(void);
+int getUserInt(void);
+long getCurrentTime(void);
+
+/*Typedefs declared here*/
+typedef enum ledStates
+{
+	OFF,
+	SELECTED,
+	CROSS,
+	CIRCLE,
+	/*SELECTEDX and O represent the state where it is CIRCLE or CROSS and also it is the currently selected led*/
+	SELECTEDX,
+	SLECTEDO
+} ledState;
+
 typedef struct led
 {
-    int pinh, pinl;
-    int state;
+    int pinHigh, pinLow;
+    ledState state;
 } led;
 
 typedef struct board 
@@ -18,6 +40,7 @@ typedef struct board
 } board;
 
 
+/*Globals declared here*/
 board matrix;
 
 int main (int argc, char *argv[])
@@ -62,30 +85,30 @@ int setup(void) {
       
       if (i == 1)
          {
-         matrix.ledArr[0].pinh = io1;
-         matrix.ledArr[3].pinh = io1;
-         matrix.ledArr[6].pinh = io1;
-         matrix.ledArr[0].pinl = io2;
-         matrix.ledArr[1].pinl = io2;
-         matrix.ledArr[2].pinl = io2;
+         matrix.ledArr[0].pinHigh = io1;
+         matrix.ledArr[3].pinHigh = io1;
+         matrix.ledArr[6].pinHigh = io1;
+         matrix.ledArr[0].pinLow = io2;
+         matrix.ledArr[1].pinLow = io2;
+         matrix.ledArr[2].pinLow = io2;
          }
       if (i == 2)
          {
-         matrix.ledArr[1].pinh = io1;
-         matrix.ledArr[4].pinh = io1;
-         matrix.ledArr[7].pinh = io1;
-         matrix.ledArr[3].pinl = io2;
-         matrix.ledArr[4].pinl = io2;
-         matrix.ledArr[5].pinl = io2;
+         matrix.ledArr[1].pinHigh = io1;
+         matrix.ledArr[4].pinHigh = io1;
+         matrix.ledArr[7].pinHigh = io1;
+         matrix.ledArr[3].pinLow = io2;
+         matrix.ledArr[4].pinLow = io2;
+         matrix.ledArr[5].pinLow = io2;
          }
       if (i == 3)
          {
-         matrix.ledArr[2].pinh = io1;
-         matrix.ledArr[5].pinh = io1;
-         matrix.ledArr[8].pinh = io1;
-         matrix.ledArr[6].pinl = io2;
-         matrix.ledArr[7].pinl = io2;
-         matrix.ledArr[8].pinl = io2;
+         matrix.ledArr[2].pinHigh = io1;
+         matrix.ledArr[5].pinHigh = io1;
+         matrix.ledArr[8].pinHigh = io1;
+         matrix.ledArr[6].pinLow = io2;
+         matrix.ledArr[7].pinLow = io2;
+         matrix.ledArr[8].pinLow = io2;
          }
       }
 

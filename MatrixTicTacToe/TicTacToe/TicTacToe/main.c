@@ -16,7 +16,10 @@ int end(void);
 int getUserInt(void);
 long getCurrentTime(void);
 
+
 /*Typedefs declared here*/
+
+/*The current state of the LED*/
 typedef enum ledStates
 {
 	OFF,
@@ -28,12 +31,14 @@ typedef enum ledStates
 	SELECTEDO
 } ledState;
 
+/*The current active player*/
 typedef enum activePlayer
 {
     X,
     O
 } activePlayer;
 
+/*The state of board*/
 typedef enum boardStates
 {
 	IDLING,
@@ -42,17 +47,18 @@ typedef enum boardStates
     EXITING
 } boardState;
 
+/*The LED object*/
 typedef struct led
 {
     int pinHigh, pinLow;
     ledState state;
 } led;
 
+/*The whole ciruit board object, also keeps track of the game state.*/
 typedef struct board 
 {
 	boardState state;
     led ledArr[9];
-    /*Which players turn is it, X starts first*/
     activePlayer player;
 	/*The three controls for user input*/
     int positioner, selector, exit;
@@ -62,8 +68,13 @@ typedef struct board
 
 
 /*Globals declared here*/
+
 board matrix;
 
+
+/*Function definitions here*/
+
+/*Entry point*/
 int main (int argc, char *argv[])
 {
     if (setup())
@@ -91,6 +102,7 @@ int main (int argc, char *argv[])
 	return 0;
 }
 
+/*Sets up all related hardware devices to interface with the GPIO pins*/
 int setup(void) {
 	int io1 = 0, io2 = 0;
 
@@ -155,6 +167,7 @@ int setup(void) {
 	return 0;	
 }
 
+/*Initializes the game to its starting state*/
 int initialize(void)
 {
     matrix.state = IDLING;
@@ -196,6 +209,7 @@ int getUserInt(void)
     return 1;
 }
 
+/*Processes user input from the specified controls*/
 void processInput(void) 
 {
 	if (digitalRead(matrix.positioner)) 
@@ -220,6 +234,7 @@ void processInput(void)
     }
 }
 
+/*Updates the game state and handles game logic*/
 void update(void) 
 {
     if (matrix.frame == 60)
@@ -235,6 +250,7 @@ void update(void)
         return;
 
     /*Still require a logic to win or reset the game on tie or exit*/
+    /*Require decomposing the fuction*/
     if (matrix.state == POSITIONING) 
     {
         for (size_t i = 0; i < 9; i++) 
@@ -309,6 +325,7 @@ void update(void)
 	return;
 }
 
+/*Renders the graphics on a 3x3 LED matrix*/
 void render(void) 
 {
     for (size_t i = 0; i < 9; i++)
@@ -358,6 +375,7 @@ void render(void)
 	return;
 }
 
+/*Support function to get the system time*/
 long getCurrentTime(void) 
 {
 	int timeout = 0;
@@ -376,6 +394,7 @@ long getCurrentTime(void)
 	return time;	
 }
 
+/*Runs the game in a synchronized game loop*/
 int run(void) 
 {
     long previous = getCurrentTime();
@@ -402,6 +421,7 @@ int run(void)
 	return 0;
 }
 
+/*Cleanup done here*/
 int end(void) 
 {
 	return 0;

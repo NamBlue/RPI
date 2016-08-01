@@ -66,61 +66,61 @@ int main (int argc, char *argv[])
 int setup(void) {
 	int io1 = 0, io2 = 0;
 
-   wiringPiSetupGpio(); 
+    wiringPiSetupGpio(); 
 
-   printf("Please enter the GPIO pin number for the LED Positioner: \n");
-   io1 = getUserInt();
-   pinMode(io1, INPUT);
-   printf("LED Posistioner set to pin %d\n", io1);
+    printf("Please enter the GPIO pin number for the LED Positioner: \n");
+    io1 = getUserInt();
+    pinMode(io1, INPUT);
+    printf("LED Posistioner set to pin %d\n", io1);
 
-   printf("Please enter the GPIO pin number for the LED Selector: \n");
-   io2 = getUserInt();
-   pinMode(io2, INPUT);
-   printf("LED Selector set to pin %d\n", io2);
+    printf("Please enter the GPIO pin number for the LED Selector: \n");
+    io2 = getUserInt();
+    pinMode(io2, INPUT);
+    printf("LED Selector set to pin %d\n", io2);
 
-   matrix.positioner = io1;
-   matrix.selector = io2;
+    matrix.positioner = io1;
+    matrix.selector = io2;
 
-   for (size_t i = 1; i < 4; i++)
-      {
-      printf("Please enter the GPIO pin number for Column %d: \n", i);
-      io1 = getUserInt();
-      pinMode(io1, OUTPUT);
-      printf("Column %d set to pin %d\n", i, io1);
+    for (size_t i = 1; i < 4; i++)
+    {
+        printf("Please enter the GPIO pin number for Column %d: \n", i);
+        io1 = getUserInt();
+        pinMode(io1, OUTPUT);
+        printf("Column %d set to pin %d\n", i, io1);
 
-      printf("Please enter the GPIO pin number for Row %d: \n", i);
-	   io2 = getUserInt();
-   	pinMode(io2, OUTPUT);
-      printf("Row %d set to pin %d\n", i, io2);
+        printf("Please enter the GPIO pin number for Row %d: \n", i);
+	    io2 = getUserInt();
+        pinMode(io2, OUTPUT);
+        printf("Row %d set to pin %d\n", i, io2);
       
-      if (i == 1)
-         {
-         matrix.ledArr[0].pinHigh = io1;
-         matrix.ledArr[3].pinHigh = io1;
-         matrix.ledArr[6].pinHigh = io1;
-         matrix.ledArr[0].pinLow = io2;
-         matrix.ledArr[1].pinLow = io2;
-         matrix.ledArr[2].pinLow = io2;
-         }
-      if (i == 2)
-         {
-         matrix.ledArr[1].pinHigh = io1;
-         matrix.ledArr[4].pinHigh = io1;
-         matrix.ledArr[7].pinHigh = io1;
-         matrix.ledArr[3].pinLow = io2;
-         matrix.ledArr[4].pinLow = io2;
-         matrix.ledArr[5].pinLow = io2;
-         }
-      if (i == 3)
-         {
-         matrix.ledArr[2].pinHigh = io1;
-         matrix.ledArr[5].pinHigh = io1;
-         matrix.ledArr[8].pinHigh = io1;
-         matrix.ledArr[6].pinLow = io2;
-         matrix.ledArr[7].pinLow = io2;
-         matrix.ledArr[8].pinLow = io2;
-         }
-      }
+        if (i == 1)
+        {
+            matrix.ledArr[0].pinHigh = io1;
+            matrix.ledArr[3].pinHigh = io1;
+            matrix.ledArr[6].pinHigh = io1;
+            matrix.ledArr[0].pinLow = io2;
+            matrix.ledArr[1].pinLow = io2;
+            matrix.ledArr[2].pinLow = io2;
+        }
+        if (i == 2)
+        {
+            matrix.ledArr[1].pinHigh = io1;
+            matrix.ledArr[4].pinHigh = io1;
+            matrix.ledArr[7].pinHigh = io1;
+            matrix.ledArr[3].pinLow = io2;
+            matrix.ledArr[4].pinLow = io2;
+            matrix.ledArr[5].pinLow = io2;
+        }
+        if (i == 3)
+        {
+            matrix.ledArr[2].pinHigh = io1;
+            matrix.ledArr[5].pinHigh = io1;
+            matrix.ledArr[8].pinHigh = io1;
+            matrix.ledArr[6].pinLow = io2;
+            matrix.ledArr[7].pinLow = io2;
+            matrix.ledArr[8].pinLow = io2;
+        }
+    }
 
 	return 0;	
 }

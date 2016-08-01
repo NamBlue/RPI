@@ -28,6 +28,12 @@ typedef enum ledStates
 	SELECTEDO
 } ledState;
 
+typedef enum activePlayer
+{
+    X,
+    O
+} activePlayer;
+
 typedef enum boardStates
 {
 	IDLING,
@@ -46,10 +52,12 @@ typedef struct board
 {
 	boardState state;
     led ledArr[9];
-	/*The two controls for user input*/
-    int positioner, selector;
+    /*Which players turn is it, X starts first*/
+    activePlayer player;
 	/*The three controls for user input*/
     int positioner, selector, exit;
+    /*Keeps track of the current frame of the game so render knows what frame it is in to render.*/
+    long frame;
 } board;
 
 
@@ -89,14 +97,14 @@ int setup(void) {
     wiringPiSetupGpio(); 
 
     printf("Please enter the GPIO pin number for the LED Positioner: \n");
-    io1 = getUserInt();
-    pinMode(io1, INPUT);
-    printf("LED Posistioner set to pin %d\n", io1);
+    matrix.positioner = getUserInt();
+    pinMode(matrix.positioner, INPUT);
+    printf("LED Posistioner set to pin %d\n", matrix.positioner);
 
     printf("Please enter the GPIO pin number for the LED Selector: \n");
-    io2 = getUserInt();
-    pinMode(io2, INPUT);
-    printf("LED Selector set to pin %d\n", io2);
+    matrix.selector = getUserInt();
+    pinMode(matrix.selector, INPUT);
+    printf("LED Selector set to pin %d\n", matrix.selector);
 
     printf("Please enter the GPIO pin number for the Exit button: \n");
     matrix.exit = getUserInt();
@@ -150,6 +158,8 @@ int setup(void) {
 int initialize(void)
 {
     matrix.state = IDLING;
+    matrix.frame = 0;
+
     for (size_t i = 0; i < 9; i++)
     {
         /*First led is always selected as the starting position*/
@@ -212,6 +222,14 @@ void processInput(void)
 
 void update(void) 
 {
+    if (matrix.frame == 60)
+    {
+        matrix.frame = 0;
+    }
+    else
+    {
+        matrix.frame++;
+    }
     else if (matrix.state == EXITING)
     {
         printf("\nThanks for playing!");

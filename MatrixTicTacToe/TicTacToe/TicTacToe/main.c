@@ -329,11 +329,11 @@ void update(void)
 void render(void) 
 {
     for (size_t i = 0; i < 9; i++)
-    {
-        /*Not redundant, for faster rendering.*/
+    {        
         if (matrix.ledArr[i].state == OFF)
         {
-            continue;
+            digitalWrite(matrix.ledArr[i].pinHigh, LOW);
+            digitalWrite(matrix.ledArr[i].pinLow, LOW);
         }
         else if (matrix.ledArr[i].state == CROSS) 
         {
